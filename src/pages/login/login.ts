@@ -9,6 +9,7 @@ import { Facebook } from '@ionic-native/facebook';
 //firebaseimport { platform } from 'os';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -32,7 +33,7 @@ export class LoginPage {
     this.afAuth.auth.signOut();
   }
   ionViewDidLoad() {
-    
+   
   }
 
   signInWithFacebook() {
@@ -48,8 +49,11 @@ export class LoginPage {
             res.uid,
             'facebook'
           )
-          this.navCtrl.pop();
+          //this.navCtrl.setRoot(HomePage);
+          this.navCtrl.push(HomePage);
+          
         }).catch(res => console.log(JSON.stringify(res)));
+   
       })
     }
     else {
@@ -63,8 +67,11 @@ export class LoginPage {
             res.user.uid,
             'facebook'
           )
-          this.navCtrl.pop();
+          this.navCtrl.setRoot(HomePage);
+          //this.navCtrl.pop();
+          
         }).catch(error => console.log(JSON.stringify(error)));
+        
     }
 
   }

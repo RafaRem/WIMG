@@ -42,13 +42,16 @@ export class LoginPage {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         firebase.auth().signInWithCredential(facebookCredential)
         .then((res:any)=>{
+          
           this._usuarioProvider.cargarUusuario(
             res.displayName,
             res.email,
             res.photoURL,
             res.uid,
-            'facebook'
+            'facebook',
+           
           )
+          console.log(this._usuarioProvider)
           //this.navCtrl.setRoot(HomePage);
           this.navCtrl.push(HomePage);
           
@@ -59,14 +62,20 @@ export class LoginPage {
     else {
       return this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then((res:any) => {
+        
+        .then((res:any) => { 
+        
           this._usuarioProvider.cargarUusuario(
+            
             res.user.displayName,
+            
             res.user.email,
             res.user.photoURL,
             res.user.uid,
             'facebook'
+
           )
+          console.log(JSON.stringify(res));
           this.navCtrl.setRoot(HomePage);
           //this.navCtrl.pop();
           
